@@ -1,0 +1,115 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "d0ebbed6-a016-42e8-b990-a17b08ccc37e",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import telebot\n",
+    "from flask import Flask, request\n",
+    "import os\n",
+    "\n",
+    "\n",
+    "TOKEN = os.environ.get('BOT_TOKEN')\n",
+    "bot = telebot.TeleBot(token = TOKEN) \n",
+    "\n",
+    "@bot.message_handler(commands = ['start']) \n",
+    "def welcome(message):\n",
+    "    welcome_text = f\"user {message.from_user.first_name} Welcome to our bot!\"\n",
+    "    bot.send_message(chat_id = message.chat.id,  text = welcome_text)\n",
+    "\n",
+    "# @bot.group_join_request()\n",
+    "@bot.chat_join_request_handler()\n",
+    "def handle_join_request(join_request):\n",
+    "    req_welcome_text = f\"User: {join_request.from_user.first_name}\"\n",
+    "    req_send_proof = \"\"\"سلام وقت بخیر\n",
+    "\n",
+    "جهت عضویت شما در گروه ویزای جی پزشکان موارد زیر رو بررسی بفرمایید تا در اسرع وقت عضویت شما مورد تایید قرار بگیرد \n",
+    "\n",
+    "* باتوجه به اینکه این گروه  مخصوص پزشکان، دندانپزشکان و داروسازان میباشد، ممنون میشم با \n",
+    "فرستادن تصویر واضح از\n",
+    " \n",
+    "۱- کارت دانشجويي\n",
+    "  و یا \n",
+    "۲-  كارت نظام پزشکی \n",
+    "\n",
+    "بهمون اطمینان بدین پزشک، داروساز یا دندان پزشک هستین، \n",
+    "\n",
+    "۳- پروفايلتون هم اگر فعال نيست براي ادمين ها فعال كنيد \n",
+    "\n",
+    "در غیر اینصورت از عضویت و یا ادامه فعالیت شما در این گروه معذوریم\n",
+    "🙏\n",
+    "\n",
+    "لطفا مدارک فوق رو به ای دی زیر ارسال بفرمایید:\n",
+    "@DrHemin\n",
+    "\n",
+    "https://t.me/+4-las6zkqDZkNWNk \"\"\"\n",
+    "    \n",
+    "    bot.send_message(chat_id = join_request.from_user.id, \n",
+    "                     text = f\"{req_welcome_text}\\n {req_send_proof}\")\n",
+    "\n",
+    "\n",
+    "\n",
+    "app = Flask(__name__)\n",
+    "\n",
+    "@app.route(f\"/{TOKEN}\", methods=['POST'])\n",
+    "def webhook():\n",
+    "    json_string = request.get_data().decode('utf-8')\n",
+    "    update = telebot.types.Update.de_json(json_string)\n",
+    "    bot.process_new_updates([update])\n",
+    "    return \"OK\", 200\n",
+    "\n",
+    "@app.route(\"/\")\n",
+    "def index():\n",
+    "    return \"Bot is running!\", 200\n",
+    "\n",
+    "# Set webhook\n",
+    "URL = f\"https://visa_bot.onrender.com/{TOKEN}\"\n",
+    "bot.remove_webhook()\n",
+    "bot.set_webhook(url=URL)\n",
+    "\n",
+    "# Start Flask server\n",
+    "if __name__ == \"__main__\":\n",
+    "    app.run(host=\"0.0.0.0\", port=int(os.environ.get(\"PORT\", 5000)))\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "96db25f2-b863-47f0-9e0b-11465466b111",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.12.3"
+  },
+  "widgets": {
+   "application/vnd.jupyter.widget-state+json": {
+    "state": {},
+    "version_major": 2,
+    "version_minor": 0
+   }
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
