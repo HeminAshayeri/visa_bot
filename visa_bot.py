@@ -4,7 +4,7 @@ import os
 
 TOKEN = os.environ.get('BOT_TOKEN')
 bot = telebot.TeleBot(token=TOKEN)
-bot.add_custom_filter(custom_filters.ChatJoinRequestFilter())
+
 
 
 @bot.message_handler(commands=['start'])
@@ -61,9 +61,6 @@ def index():
 
 
 # Set webhook
-# URL = f"https://visa_bot.onrender.com/{TOKEN}"
-# bot.remove_webhook()
-# bot.set_webhook(url=URL)
 
 URL = f"https://visa-bot-tv1e.onrender.com/{TOKEN}"
 bot.remove_webhook()
@@ -72,6 +69,7 @@ bot.set_webhook(url=URL)
 # Start Flask server
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 10000)))
+
 
 
 
