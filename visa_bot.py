@@ -38,8 +38,8 @@ def reply_msg(message):
 
 @bot.chat_join_request_handler()
 def handle_join_request(join_request):
-    req_welcome_text = f"Dear {join_request.from_user.first_name}"
-    req_send_proof = """سلام و وقت بخیر 🌿
+    req_welcome_text = f"عزیز {join_request.from_user.first_name}"
+    req_send_proof = f"""سلام و وقت بخیر 🌿
     
 به گروه ویزای J ویژه پزشکان خوش آمدید 🙏🏻
 
@@ -98,6 +98,7 @@ bot.set_webhook(url=URL)
 # Start Flask server
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 10000)))
+
 
 
 
