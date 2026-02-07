@@ -12,7 +12,24 @@ def welcome(message):
     welcome_text = f"user {message.from_user.first_name} Welcome to our bot!"
     bot.send_message(chat_id=message.chat.id, text=welcome_text)
 
+@bot.message_handler(func = lambda message : True, 
+                     content_types = ['audio', 'photo', 'voice', 
+                                      'video', 'document','text', 
+                                      'location', 'contact', 'sticker'])
+def reply_msg(message):
+    if message.text != '/start':
+        
+        msg = f"""عزیز {message.from_user.first_name}
 
+لطفاً برای هرگونه سوال درباره ویزای آمریکا یا شرایط عضویت در گروه، 
+مستقیماً با ادمین گروه تماس بگیرید:
+
+💬 @DrHemin
+
+از توجه و همکاری شما سپاسگزاریم!
+"""
+        
+        bot.reply_to(message, msg)
 # @bot.group_join_request()
 @bot.chat_join_request_handler()
 def handle_join_request(join_request):
@@ -67,6 +84,7 @@ bot.set_webhook(url=URL)
 # Start Flask server
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 10000)))
+
 
 
 
