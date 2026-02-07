@@ -11,7 +11,7 @@ bot = telebot.TeleBot(token=TOKEN)
                      chat_types = ['private'])
 def welcome(message):
     welcome_text = f"Dear {message.from_user.first_name} Welcome to our bot!"
-    bot.send_message(chat_id=message.chat.id, text=welcome_text)
+    bot.send_message(chat_id=message.from_user.id, text=welcome_text)
 
 @bot.message_handler(func = lambda message : True, 
                      content_types = ['audio', 'photo', 'voice', 
@@ -92,6 +92,7 @@ bot.set_webhook(url=URL)
 # Start Flask server
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 10000)))
+
 
 
 
