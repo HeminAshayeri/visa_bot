@@ -2,6 +2,7 @@ import telebot
 from flask import Flask, request
 import os
 
+admin = int(os.environ.get("ADMIN_ID"))
 TOKEN = os.environ.get('BOT_TOKEN')
 bot = telebot.TeleBot(token=TOKEN)
 
@@ -61,6 +62,7 @@ https://t.me/+4-las6zkqDZkNWNk """
                      text=f"{req_welcome_text}\n {req_send_proof}")
     
     msg = f"""New request: 
+    group name: {join_request.chat.title}
     first name: {join_request.from_user.first_name} 
     chat id: {join_request.from_user.id}"""
     
@@ -92,6 +94,7 @@ bot.set_webhook(url=URL)
 # Start Flask server
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 10000)))
+
 
 
 
