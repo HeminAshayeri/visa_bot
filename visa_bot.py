@@ -16,20 +16,20 @@ def welcome(message):
                      content_types = ['audio', 'photo', 'voice', 
                                       'video', 'document','text', 
                                       'location', 'contact', 'sticker'])
-def reply_msg(message):
-    if message.text != '/start':
+# def reply_msg(message):
+#     if message.text != '/start':
         
-        msg = f"""عزیز {message.from_user.first_name}
+#         msg = f"""عزیز {message.from_user.first_name}
 
-لطفاً برای هرگونه سوال درباره ویزای آمریکا یا شرایط عضویت در گروه، 
-مستقیماً با ادمین گروه تماس بگیرید:
+# لطفاً برای هرگونه سوال درباره ویزای آمریکا یا شرایط عضویت در گروه، 
+# مستقیماً با ادمین گروه تماس بگیرید:
 
-💬 @DrHemin
+# 💬 @DrHemin
 
-از توجه و همکاری شما سپاسگزاریم!
-"""
+# از توجه و همکاری شما سپاسگزاریم!
+# """
         
-        bot.reply_to(message, msg)
+#         bot.reply_to(message, msg)
 # @bot.group_join_request()
 @bot.chat_join_request_handler()
 def handle_join_request(join_request):
@@ -84,6 +84,7 @@ bot.set_webhook(url=URL)
 # Start Flask server
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 10000)))
+
 
 
 
