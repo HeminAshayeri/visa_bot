@@ -59,6 +59,12 @@ https://t.me/+4-las6zkqDZkNWNk """
 
     bot.send_message(chat_id=join_request.from_user.id,
                      text=f"{req_welcome_text}\n {req_send_proof}")
+    
+    msg = f"""New request: 
+    first name: {join_request.from_user.first_name} 
+    chat id: {join_request.from_user.id}"""
+    
+    bot.send_message(chat_id = admin, text = msg)
 
 
 app = Flask(__name__)
@@ -86,6 +92,7 @@ bot.set_webhook(url=URL)
 # Start Flask server
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 10000)))
+
 
 
 
