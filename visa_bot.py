@@ -30,7 +30,7 @@ def welcome(message):
 # """
         
 #         bot.reply_to(message, msg)
-# @bot.group_join_request()
+
 @bot.chat_join_request_handler()
 def handle_join_request(join_request):
     req_welcome_text = f"Dear {join_request.from_user.first_name}"
