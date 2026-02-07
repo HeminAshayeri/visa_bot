@@ -3,7 +3,9 @@ from flask import Flask, request
 import os
 
 admin = int(os.environ.get("ADMIN_ID"))
+admin_id = os.environ.get("admin_id")
 TOKEN = os.environ.get('BOT_TOKEN')
+group_link = os.environ.get("group_link")
 bot = telebot.TeleBot(token=TOKEN)
 
 
@@ -27,7 +29,7 @@ def reply_msg(message):
 لطفاً برای هرگونه سوال درباره ویزای آمریکا یا شرایط عضویت در گروه، 
 مستقیماً با ادمین گروه تماس بگیرید:
 
-💬 @DrHemin
+💬 {admin_id}
 
 از توجه و همکاری شما سپاسگزاریم!
 """
@@ -54,9 +56,9 @@ def handle_join_request(join_request):
 🙏🏻 سپاس از همکاری شما در حفظ کیفیت و اعتبار این جمع تخصصی
 
 لطفاً مدارک را به آیدی زیر ارسال بفرمایید:
-@DrHemin
+{admin_id}
 
-https://t.me/+4-las6zkqDZkNWNk """
+{group_link}"""
 
     bot.send_message(chat_id=join_request.from_user.id,
                      text=f"{req_welcome_text}\n {req_send_proof}")
@@ -94,6 +96,7 @@ bot.set_webhook(url=URL)
 # Start Flask server
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 10000)))
+
 
 
 
