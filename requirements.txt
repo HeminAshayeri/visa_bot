@@ -1,5 +1,1 @@
-pyTelegramBotAPI
-requests
 python-telegram-bot
-python-dotenv
-Flask
